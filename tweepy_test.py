@@ -7,10 +7,10 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 # replace the following values with your Tweepy credentials.
-consumer_key = config.get('Tweepy', 'CONSUMER_KEY')
-consumer_secret = config.get('Tweepy', 'CONSUMER_SECRET')
-access_token = config.get('Tweepy', 'ACCESS_TOKEN')
-access_token_secret = config.get('Tweepy', 'ACCESS_TOKEN_SECRET')
+consumer_key = config['Tweepy'][ 'CONSUMER_KEY']
+consumer_secret = config['Tweepy'][ 'CONSUMER_SECRET']
+access_token = config['Tweepy'][ 'ACCESS_TOKEN']
+access_token_secret = config['Tweepy'][ 'ACCESS_TOKEN_SECRET']
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
