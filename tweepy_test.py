@@ -41,8 +41,10 @@ class Listener(tweepy.StreamListener):
 
 
 
-output = open('stream_output.txt', 'w', encoding="utf-8")
-listener = Listener(output_file=output)
+#output = open('stream_output.txt', 'w', encoding="utf-8")
+#listener = Listener(output_file=output)
+
+listener = Listener()
 
 stream = tweepy.Stream(auth=api.auth, listener=listener)
 
@@ -56,4 +58,3 @@ except KeyboardInterrupt:
 finally:
     print('Done.')
     stream.disconnect()
-    output.close()
