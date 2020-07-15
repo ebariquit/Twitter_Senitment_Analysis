@@ -38,12 +38,6 @@ class Listener(tweepy.StreamListener):
         print(status_code, file=self.output_file)
         return False
 
-
-
-
-#output = open('stream_output.txt', 'w', encoding="utf-8")
-#listener = Listener(output_file=output)
-
 listener = Listener()
 
 stream = tweepy.Stream(auth=api.auth, listener=listener)
