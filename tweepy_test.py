@@ -10,11 +10,11 @@ config.read('config.ini')
 consumer_key = config['Tweepy'][ 'CONSUMER_KEY']
 consumer_secret = config['Tweepy'][ 'CONSUMER_SECRET']
 access_token = config['Tweepy'][ 'ACCESS_TOKEN']
-access_token_secret = config['Tweepy'][ 'ACCESS_TOKEN_SECRET']
+access_secret = config['Tweepy'][ 'ACCESS_SECRET']
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 
 class Listener(tweepy.StreamListener):

@@ -6,7 +6,6 @@ Analyzes the sentiment of Tweets in real-time (as they are published to Twitter)
  - Tweepy (3.9.0)
  - Matplotlib
  - Pandas
- - Numpy
  - Apache Spark (2.4.6)
  - MySQL Server
  - C#
