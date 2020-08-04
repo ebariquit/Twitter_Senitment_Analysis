@@ -84,7 +84,7 @@ def process(rdd):
         
         # for debug
         #print("show transform")
-        #pipelineFit.transform(wordsDataFrame).select('tweet','prediction').show()
+        pipelineFit.transform(wordsDataFrame).select('tweet','prediction').show()
         
         # get the sentiments for each row
         df = pipelineFit.transform(wordsDataFrame).select('tweet','prediction')
@@ -146,7 +146,7 @@ def send_wds_to_dashboard(df):
     
     print(request_data)
     print("to pandas df")
-    pandas_df = df.toPandas()
+    #pandas_df = df.toPandas()
     
     # create connection to MySQL database
     #con = create_engine('mysql+pymysql://spark:spark@127.0.0.1/twitter')
@@ -161,7 +161,7 @@ def send_df_to_dashboard(df):
     print("send data frame to dashboard")
      
     print("spark df to pandas df")
-    pandas_df = df.toPandas()
+    #pandas_df = df.toPandas()
     
     # create connection to MySQL database
     #con = create_engine('mysql+pymysql://spark:spark@127.0.0.1/twitter')
