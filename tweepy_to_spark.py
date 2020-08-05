@@ -20,6 +20,7 @@ ACCESS_TOKEN = config['Tweepy'][ 'ACCESS_TOKEN']
 ACCESS_SECRET = config['Tweepy'][ 'ACCESS_SECRET']
 
 # Define TweetsListener, which inherits from the StreamListener class imported from tweepy.streaming.
+# You can find Tweepy's source code for the StreamListener here: https://github.com/tweepy/tweepy/blob/v3.9.0/tweepy/streaming.py
 class TweetsListener(StreamListener):
 
     # Constructor.
@@ -29,31 +30,37 @@ class TweetsListener(StreamListener):
     # Override on_data() function.
     def on_data(self, data):
         try:
-            message = json.loads(data)
-            message_encoded = message['text'].encode('utf-8')
-            print(message_encoded)
-            self.client_socket.send(message_encoded)  
+            message = json.loads(data)                          # Load the json data.
+            message_encoded = message['text'].encode('utf-8')   # Apply the correct character encoding.
+            print(message_encoded)                              # For debugging.
+            self.client_socket.send(message_encoded)            # Send the Tweepy data to our socket.
             return True
         except BaseException as ex:
             print("Error on_data: %s" % str(ex))
         return True
 
-    def if_error(self, status):
+    def on_error(self, status):
         print(status)
         return True
 
 def send_tweets(clientSocket):
+    # Define your authentication.
     auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
-    twitter_stream = Stream(auth, TweetsListener(clientSocket))
-    twitter_stream.filter(track = ['covid'])                          # The topic we want to filter for.
+    Stream(auth, TweetsListener(clientSocket))                  # Follow the previously provided link for the Stream class' source code.
+
+    # If you would like to filter the stream to focus it on a specific topic, (i.e.: 'covid'),
+    # remove the previous line of code and uncomment the following:
+
+    # twitter_stream = Stream(auth, TweetsListener(clientSocket))
+    # twitter_stream.filter(track = ['covid'])                          
 
 
 
 
 if __name__ == "__main__":
-    print("Starting.")
+    print("Starting")
 
     new_socket = socket.socket()            # Initialize socket.
     TCP_IP = "127.0.0.1"                    # Socket IP (localhost).
@@ -61,6 +68,8 @@ if __name__ == "__main__":
 
     new_socket.bind((TCP_IP, TCP_PORT))     # Bind the IP/Port.
     new_socket.listen(1)                    # Listen for a single connection.
+
+    print("Socket created. Listening on port: %s" % str(TCP_PORT))
 
     client, address = new_socket.accept()   # Establish connection with client.
                                             # 'new_socket.accept()' returns a socket object (client),
